@@ -1,0 +1,30 @@
+version : '3.8'
+services:
+  mysqldb:
+    image: mysql
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_DATABASE : lostnfound
+      MYSQL_ROOT_PASSWORD : database
+    volumes:
+      - mysqldb:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - lostnfound
+  adminer:
+    image: dockette/adminer:full
+    container_name: adminer-container
+    restart: always
+    ports:
+      - "9000:80"
+    depends_on:
+      - mysqldb
+    networks:
+      - lostnfound
+networks:
+  lostnfound:
+volumes:
+  mysqldb:
+    driver: local

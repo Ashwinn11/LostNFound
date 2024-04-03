@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,13 +16,22 @@ public class Found {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String itemName;
+
     @Column(length = 500)
     private String description;
+
     @ManyToOne
-    private User user;
-    private String location;
-    private LocalDateTime dateTime;
+    private User foundedBy;
+
+    private String foundAt;
+
+    private Timestamp foundOn;
+
     @Column(length = 500)
     private String imageUrl;
+
+    @Enumerated(value =EnumType.STRING)
+    private Status status;
 }

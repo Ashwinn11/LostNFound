@@ -1,14 +1,22 @@
 package com.lost.found.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.lost.found.entity.Found;
+import com.lost.found.service.FoundService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/found")
 public class FoundController {
-    @GetMapping("/test")
-    public String testMethod(){
-        return "Welcome to the page";
+    private final FoundService foundService;
+
+    public FoundController(FoundService foundService) {
+        this.foundService = foundService;
     }
+
+    @PostMapping
+    public ResponseEntity<?> postNewItem(@RequestBody Found found){
+        return foundService.postItem(found);
+    }
+
 }
